@@ -1,0 +1,2558 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="description"
+    content="Advanced security analytics platform for real-time session monitoring, user behavior analysis, risk assessment, and automated security controls with interactive dashboards and comprehensive audit logging.">
+  <meta name="theme-color" content="#ffffff">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="robots" content="">
+
+  <!-- Alpine.js - Load first -->
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.3/cdn.min.js"></script>
+
+  <!-- Font Links -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <title>Security Analytics Dashboard - Real-time Session Monitoring & Risk Analysis</title>
+  <!-- SEO Description -->
+  <meta name="description"
+    content="Advanced security analytics platform for real-time session monitoring, user behavior analysis, risk assessment, and automated security controls with interactive dashboards and comprehensive audit logging.">
+
+  <!-- Performance optimization: Preload critical resources -->
+  <link rel="preload" href="https://cdn.tailwindcss.com" as="script">
+
+  <!-- Core CSS and Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.45.1/apexcharts.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Project-specific styles -->
+  <style>
+    /* Base styles */
+    :root {
+      --primary-color: #121826;
+      --secondary-color: #00FFB2;
+      --accent-color: ;
+    }
+
+    /* Strict no-scrollbar rules */
+    * {
+      -ms-overflow-style: none !important;
+      /* IE and Edge */
+      scrollbar-width: none !important;
+      /* Firefox */
+    }
+
+    *::-webkit-scrollbar {
+      display: none !important;
+      /* Chrome, Safari and Opera */
+    }
+
+    /* Typography */
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: Inter, Inter, system-ui, sans-serif;
+    }
+
+    body {
+      font-family: Inter, Inter, system-ui, sans-serif;
+    }
+
+    /* Interactive elements */
+    .interactive-element {
+      transition: all 0.3s ease;
+    }
+
+    .interactive-element:hover {
+      transform: translateY(-2px);
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    .fade-in {
+      animation: fadeIn 0.5s ease-in-out;
+    }
+  </style>
+
+  <!-- Dynamic Meta Tags -->
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="robots" content="">
+  <meta property="og:title" content="">
+  <meta property="og:description" content="">
+  <meta property="og:image" content="">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:site_name" content="Security Analytics Dashboard">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="">
+
+  <!-- Header Scripts -->
+  <script id="header-scripts">
+    // This script tag will be replaced with actual scripts.head content
+    if (window.scripts && window.scripts.head) {
+      document.getElementById('header-scripts').outerHTML = window.scripts.head;
+    }
+  </script>
+
+  <!-- Project Configuration -->
+  <script>
+    window.projectConfig = {
+      name: 'Security Analytics Dashboard',
+      type: '',
+      settings: {
+        colors: {
+          primary: '#121826',
+          secondary: '#00FFB2',
+          accent: ''
+        },
+        fonts: {
+          primary: 'Inter',
+          secondary: 'Inter'
+        }
+      }
+    };
+  </script>
+  <style>
+    [data-section-id] {
+      display: none;
+    }
+
+    [data-section-id]:first-child {
+      display: block;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+</head>
+
+<body class="antialiased text-gray-800 min-h-screen flex flex-col">
+  <main id="main-content" class="flex-1 relative h-full">
+    <mountpoint>
+      <div id="RolloutPageContent">
+        <div id="root" class="flex h-screen bg-gray-100">
+          <!-- Mobile Menu Wrapper -->
+          <div x-data="{ isOpen: false }" class="flex h-hull justify-center items-center">
+            <!-- Navigation Sidebar -->
+            <nav
+              class="fixed h-screen inset-y-0 left-0 z-50 w-64 bg-slate-900 border-r border-slate-700/30 transform lg:translate-x-0 lg:static lg:inset-0 transition-transform duration-300 ease-in-out"
+              :class="{ '-translate-x-full': !isOpen, 'translate-x-0': isOpen }">
+              <!-- Logo Section -->
+              <div class="flex items-center justify-between h-16 px-6 border-b border-slate-700/30">
+                <div class="flex items-center space-x-3">
+                  <div
+                    class="w-8 h-8 bg-gradient-to-br from-emerald-400 to-cyan-400 rounded-lg flex items-center justify-center">
+                    <svg class="w-5 h-5 text-slate-900" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                  <span class="text-xl font-bold text-white">SecureAuth</span>
+                </div>
+                <!-- Mobile Close Button -->
+                <button type="button"
+                  class="lg:hidden text-slate-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+                  @click="isOpen = false">
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+
+              <!-- Navigation Menu -->
+              <div class="flex-1 px-4 py-6 space-y-2">
+                <a href="#dashboard"
+                  class="flex items-center px-4 py-3 text-sm font-medium text-emerald-400 bg-slate-800/50 rounded-lg border border-emerald-400/20 transition-all duration-200 hover:bg-slate-800 hover:border-emerald-400/40">
+                  <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M8 5a2 2 0 012-2h2a2 2 0 012 2v0M8 5a2 2 0 012-2h2a2 2 0 012 2v0" />
+                  </svg>
+                  Dashboard
+                </a>
+
+                <a href="#sessions"
+                  class="flex items-center px-4 py-3 text-sm font-medium text-slate-300 rounded-lg border border-transparent transition-all duration-200 hover:text-white hover:bg-slate-800/50 hover:border-slate-600/30">
+                  <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                  </svg>
+                  Sessions
+                </a>
+
+                <a href="#insights"
+                  class="flex items-center px-4 py-3 text-sm font-medium text-slate-300 rounded-lg border border-transparent transition-all duration-200 hover:text-white hover:bg-slate-800/50 hover:border-slate-600/30">
+                  <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                  </svg>
+                  Insights
+                </a>
+
+                <a href="#security"
+                  class="flex items-center px-4 py-3 text-sm font-medium text-slate-300 rounded-lg border border-transparent transition-all duration-200 hover:text-white hover:bg-slate-800/50 hover:border-slate-600/30">
+                  <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                  </svg>
+                  Security
+                </a>
+
+                <a href="#admin"
+                  class="flex items-center px-4 py-3 text-sm font-medium text-slate-300 rounded-lg border border-transparent transition-all duration-200 hover:text-white hover:bg-slate-800/50 hover:border-slate-600/30">
+                  <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  Admin
+                </a>
+              </div>
+
+              <!-- User Profile Section -->
+              <div class="p-4 border-t border-slate-700/30">
+                <div class="flex items-center space-x-3 p-3 rounded-lg bg-slate-800/30 border border-slate-700/20">
+                  <img src="https://avatar.iran.liara.run/public/42" alt="User Avatar"
+                    class="w-10 h-10 rounded-full border-2 border-emerald-400/30">
+                  <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-white truncate">admin@secureauth.com</p>
+                    <p class="text-xs text-slate-400 truncate">Administrator</p>
+                  </div>
+                  <button class="text-slate-400 hover:text-white transition-colors duration-200">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <button type="button"
+              class="lg:hidden fixed top-4 left-4 z-50 p-2 rounded-lg bg-slate-900 text-slate-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white transition-colors duration-200"
+              @click="isOpen = !isOpen" aria-controls="mobile-menu" :aria-expanded="isOpen">
+              <svg x-show="!isOpen" x-cloak class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+              <svg x-show="isOpen" x-cloak class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+
+            <!-- Mobile Menu Overlay -->
+            <div x-show="isOpen" x-cloak id="mobile-menu"
+              class="lg:hidden fixed inset-0 z-40 bg-slate-800/80 backdrop-blur-lg"
+              x-transition:enter="transition ease-out duration-100 transform"
+              x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+              x-transition:leave="transition ease-in duration-75 transform"
+              x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+              @click.away="isOpen = false" @resize.window="if (window.innerWidth > 1024) isOpen = false">
+            </div>
+          </div>
+
+          <!-- Main Content Area -->
+          <div class="flex-1 overflow-y-auto">
+            <section id="dashboard" class="min-h-screen bg-slate-900 p-6">
+              <div class="max-w-7xl mx-auto">
+                <!-- Header -->
+                <div class="mb-8">
+                  <h1 class="text-3xl font-bold text-white mb-2">Dashboard</h1>
+                  <p class="text-slate-400">Real-time security monitoring and analytics</p>
+                </div>
+
+                <!-- Dashboard Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                  <!-- Total Sessions Card -->
+                  <div
+                    class="bg-slate-800 rounded-xl p-6 border border-emerald-400/20 hover:border-emerald-400/40 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-emerald-400/20">
+                    <div class="flex items-center justify-between mb-4">
+                      <h3 class="text-slate-300 text-sm font-medium">Total Sessions</h3>
+                      <div class="w-8 h-8 bg-emerald-400/20 rounded-lg flex items-center justify-center">
+                        <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                        </svg>
+                      </div>
+                    </div>
+                    <div class="text-3xl font-bold text-white mb-2" id="totalSessions">24,847</div>
+                    <div class="text-emerald-400 text-sm">+12.5% from last week</div>
+                  </div>
+
+                  <!-- DAU Card -->
+                  <div
+                    class="bg-slate-800 rounded-xl p-6 border border-cyan-400/20 hover:border-cyan-400/40 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-cyan-400/20">
+                    <div class="flex items-center justify-between mb-4">
+                      <h3 class="text-slate-300 text-sm font-medium">DAU</h3>
+                      <div class="w-8 h-8 bg-cyan-400/20 rounded-lg flex items-center justify-center">
+                        <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
+                        </svg>
+                      </div>
+                    </div>
+                    <div class="text-3xl font-bold text-white mb-2" id="dauCount">8,432</div>
+                    <div class="text-cyan-400 text-sm">+8.2% from yesterday</div>
+                  </div>
+
+                  <!-- Avg Risk Score Card -->
+                  <div
+                    class="bg-slate-800 rounded-xl p-6 border border-red-400/20 hover:border-red-400/40 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-red-400/20">
+                    <div class="flex items-center justify-between mb-4">
+                      <h3 class="text-slate-300 text-sm font-medium">Avg Risk Score</h3>
+                      <div class="w-8 h-8 bg-red-400/20 rounded-lg flex items-center justify-center">
+                        <svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                        </svg>
+                      </div>
+                    </div>
+                    <div class="text-3xl font-bold text-white mb-2" id="riskScore">2.4</div>
+                    <div class="text-red-400 text-sm">-0.3 from last hour</div>
+                  </div>
+                </div>
+
+                <!-- Charts Section -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                  <!-- Live Session Chart -->
+                  <div class="bg-slate-800 rounded-xl p-6 border border-slate-700/30">
+                    <div class="flex items-center justify-between mb-6">
+                      <h3 class="text-xl font-semibold text-white">Live Sessions</h3>
+                      <div class="flex items-center space-x-2">
+                        <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+                        <span class="text-slate-400 text-sm">Real-time</span>
+                      </div>
+                    </div>
+                    <div class="h-64">
+                      <canvas id="liveSessionChart"></canvas>
+                    </div>
+                  </div>
+
+                  <!-- Risk Distribution -->
+                  <div class="bg-slate-800 rounded-xl p-6 border border-slate-700/30">
+                    <h3 class="text-xl font-semibold text-white mb-6">Risk Distribution</h3>
+                    <div class="h-64">
+                      <canvas id="riskChart"></canvas>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Risk Heat Map -->
+                <div class="bg-slate-800 rounded-xl p-6 border border-slate-700/30">
+                  <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-xl font-semibold text-white">Global Risk Heat Map</h3>
+                    <div class="flex items-center space-x-4">
+                      <div class="flex items-center space-x-2">
+                        <div class="w-3 h-3 bg-emerald-400 rounded"></div>
+                        <span class="text-slate-400 text-sm">Low Risk</span>
+                      </div>
+                      <div class="flex items-center space-x-2">
+                        <div class="w-3 h-3 bg-yellow-400 rounded"></div>
+                        <span class="text-slate-400 text-sm">Medium Risk</span>
+                      </div>
+                      <div class="flex items-center space-x-2">
+                        <div class="w-3 h-3 bg-red-400 rounded"></div>
+                        <span class="text-slate-400 text-sm">High Risk</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="h-96 bg-slate-900 rounded-lg border border-slate-700/30 flex items-center justify-center">
+                    <div class="text-center">
+                      <div class="w-16 h-16 bg-slate-700 rounded-full flex items-center justify-center mb-4 mx-auto">
+                        <svg class="w-8 h-8 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                        </svg>
+                      </div>
+                      <p class="text-slate-400">Interactive map loading...</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <script>
+              // Counter animation for dashboard cards
+              function animateCounter(elementId, target, duration = 2000) {
+                const element = document.getElementById(elementId);
+                const start = 0;
+                const increment = target / (duration / 16);
+                let current = start;
+
+                const timer = setInterval(() => {
+                  current += increment;
+                  if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                  }
+
+                  if (elementId === 'riskScore') {
+                    element.textContent = current.toFixed(1);
+                  } else {
+                    element.textContent = Math.floor(current).toLocaleString();
+                  }
+                }, 16);
+              }
+
+              // Initialize counters when page loads
+              document.addEventListener('DOMContentLoaded', function () {
+                setTimeout(() => {
+                  animateCounter('totalSessions', 24847);
+                  animateCounter('dauCount', 8432);
+                  animateCounter('riskScore', 2.4);
+                }, 500);
+              });
+
+              // Chart.js initialization
+              document.addEventListener('DOMContentLoaded', function () {
+                // Live Session Chart
+                const liveCtx = document.getElementById('liveSessionChart').getContext('2d');
+                const liveSessionChart = new Chart(liveCtx, {
+                  type: 'bar',
+                  data: {
+                    labels: ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00'],
+                    datasets: [{
+                      label: 'Low Risk',
+                      data: [120, 190, 300, 500, 200, 300],
+                      backgroundColor: '#00FFB2',
+                      borderRadius: 4
+                    }, {
+                      label: 'Medium Risk',
+                      data: [80, 120, 200, 300, 150, 200],
+                      backgroundColor: '#FFAD33',
+                      borderRadius: 4
+                    }, {
+                      label: 'High Risk',
+                      data: [40, 60, 100, 150, 80, 100],
+                      backgroundColor: '#FF3D71',
+                      borderRadius: 4
+                    }]
+                  },
+                  options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                      legend: {
+                        labels: {
+                          color: '#94a3b8'
+                        }
+                      }
+                    },
+                    scales: {
+                      x: {
+                        ticks: {
+                          color: '#94a3b8'
+                        },
+                        grid: {
+                          color: '#334155'
+                        }
+                      },
+                      y: {
+                        ticks: {
+                          color: '#94a3b8'
+                        },
+                        grid: {
+                          color: '#334155'
+                        }
+                      }
+                    }
+                  }
+                });
+
+                // Risk Distribution Chart
+                const riskCtx = document.getElementById('riskChart').getContext('2d');
+                const riskChart = new Chart(riskCtx, {
+                  type: 'doughnut',
+                  data: {
+                    labels: ['Low Risk', 'Medium Risk', 'High Risk'],
+                    datasets: [{
+                      data: [65, 25, 10],
+                      backgroundColor: ['#00FFB2', '#FFAD33', '#FF3D71'],
+                      borderWidth: 0
+                    }]
+                  },
+                  options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                      legend: {
+                        position: 'bottom',
+                        labels: {
+                          color: '#94a3b8',
+                          padding: 20
+                        }
+                      }
+                    }
+                  }
+                });
+
+                // Real-time data simulation
+                setInterval(() => {
+                  const newData = liveSessionChart.data.datasets.map(dataset =>
+                    dataset.data.map(() => Math.floor(Math.random() * 500) + 50)
+                  );
+
+                  liveSessionChart.data.datasets.forEach((dataset, index) => {
+                    dataset.data = newData[index];
+                  });
+
+                  liveSessionChart.update('none');
+                }, 3000);
+              });
+            </script>
+
+            <section id="sessions" class="min-h-screen bg-slate-900 p-6">
+              <div class="max-w-7xl mx-auto">
+                <!-- Header -->
+                <div class="mb-8">
+                  <h1 class="text-3xl font-bold text-white mb-2">Sessions</h1>
+                  <p class="text-slate-400">Monitor and manage user sessions in real-time</p>
+                </div>
+
+                <!-- Filter Chips -->
+                <div class="flex flex-wrap gap-3 mb-6" id="filterChips">
+                  <button
+                    class="px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 bg-emerald-400/20 text-emerald-400 border border-emerald-400/30 hover:bg-emerald-400/30 hover:shadow-lg hover:shadow-emerald-400/20"
+                    data-filter="low">
+                    Low Risk
+                  </button>
+                  <button
+                    class="px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 bg-yellow-400/20 text-yellow-400 border border-yellow-400/30 hover:bg-yellow-400/30 hover:shadow-lg hover:shadow-yellow-400/20"
+                    data-filter="medium">
+                    Medium Risk
+                  </button>
+                  <button
+                    class="px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 bg-red-400/20 text-red-400 border border-red-400/30 hover:bg-red-400/30 hover:shadow-lg hover:shadow-red-400/20"
+                    data-filter="high">
+                    High Risk
+                  </button>
+                  <button
+                    class="px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 bg-slate-700 text-slate-300 border border-slate-600 hover:bg-slate-600 hover:text-white"
+                    data-filter="all">
+                    All Sessions
+                  </button>
+                </div>
+
+                <!-- Session List Panel -->
+                <div class="bg-slate-800 rounded-xl border border-slate-700/30 overflow-hidden">
+                  <div class="p-6 border-b border-slate-700/30">
+                    <h2 class="text-xl font-semibold text-white">Active Sessions</h2>
+                  </div>
+
+                  <div class="divide-y divide-slate-700/30" id="sessionList">
+                    <!-- Session Item 1 -->
+                    <div
+                      class="p-6 hover:bg-slate-700/30 transition-all duration-300 cursor-pointer session-item hover:shadow-lg hover:shadow-emerald-400/10 hover:border-l-4 hover:border-emerald-400"
+                      data-risk="low" onclick="openSessionModal('session-1')">
+                      <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-4">
+                          <div class="w-12 h-12 bg-emerald-400/20 rounded-full flex items-center justify-center">
+                            <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                          </div>
+                          <div>
+                            <h3 class="text-white font-medium">john.doe@company.com</h3>
+                            <p class="text-slate-400 text-sm">Session ID: sess_1a2b3c4d</p>
+                            <p class="text-slate-400 text-sm">Started: 2 hours ago</p>
+                          </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                          <span
+                            class="px-3 py-1 rounded-full text-xs font-medium bg-emerald-400/20 text-emerald-400 border border-emerald-400/30">
+                            Low Risk
+                          </span>
+                          <div class="text-slate-400">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Session Item 2 -->
+                    <div
+                      class="p-6 hover:bg-slate-700/30 transition-all duration-300 cursor-pointer session-item hover:shadow-lg hover:shadow-yellow-400/10 hover:border-l-4 hover:border-yellow-400"
+                      data-risk="medium" onclick="openSessionModal('session-2')">
+                      <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-4">
+                          <div class="w-12 h-12 bg-yellow-400/20 rounded-full flex items-center justify-center">
+                            <svg class="w-6 h-6 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                          </div>
+                          <div>
+                            <h3 class="text-white font-medium">sarah.wilson@corp.com</h3>
+                            <p class="text-slate-400 text-sm">Session ID: sess_5e6f7g8h</p>
+                            <p class="text-slate-400 text-sm">Started: 45 minutes ago</p>
+                          </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                          <span
+                            class="px-3 py-1 rounded-full text-xs font-medium bg-yellow-400/20 text-yellow-400 border border-yellow-400/30">
+                            Medium Risk
+                          </span>
+                          <div class="text-slate-400">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Session Item 3 -->
+                    <div
+                      class="p-6 hover:bg-slate-700/30 transition-all duration-300 cursor-pointer session-item hover:shadow-lg hover:shadow-red-400/10 hover:border-l-4 hover:border-red-400"
+                      data-risk="high" onclick="openSessionModal('session-3')">
+                      <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-4">
+                          <div class="w-12 h-12 bg-red-400/20 rounded-full flex items-center justify-center">
+                            <svg class="w-6 h-6 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                          </div>
+                          <div>
+                            <h3 class="text-white font-medium">unknown@suspicious.net</h3>
+                            <p class="text-slate-400 text-sm">Session ID: sess_9i0j1k2l</p>
+                            <p class="text-slate-400 text-sm">Started: 15 minutes ago</p>
+                          </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                          <span
+                            class="px-3 py-1 rounded-full text-xs font-medium bg-red-400/20 text-red-400 border border-red-400/30">
+                            High Risk
+                          </span>
+                          <div class="text-slate-400">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Session Item 4 -->
+                    <div
+                      class="p-6 hover:bg-slate-700/30 transition-all duration-300 cursor-pointer session-item hover:shadow-lg hover:shadow-emerald-400/10 hover:border-l-4 hover:border-emerald-400"
+                      data-risk="low" onclick="openSessionModal('session-4')">
+                      <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-4">
+                          <div class="w-12 h-12 bg-emerald-400/20 rounded-full flex items-center justify-center">
+                            <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                          </div>
+                          <div>
+                            <h3 class="text-white font-medium">mike.johnson@enterprise.com</h3>
+                            <p class="text-slate-400 text-sm">Session ID: sess_3m4n5o6p</p>
+                            <p class="text-slate-400 text-sm">Started: 1 hour ago</p>
+                          </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                          <span
+                            class="px-3 py-1 rounded-full text-xs font-medium bg-emerald-400/20 text-emerald-400 border border-emerald-400/30">
+                            Low Risk
+                          </span>
+                          <div class="text-slate-400">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Session Details Modal -->
+              <div id="sessionModal" class="fixed inset-0 z-50 hidden" aria-modal="true" aria-hidden="true">
+                <!-- Backdrop -->
+                <div class="fixed inset-0 bg-black/50 backdrop-blur-sm" onclick="closeSessionModal()"></div>
+
+                <!-- Modal Content -->
+                <div class="fixed inset-x-4 bottom-0 md:inset-0 md:flex md:items-center md:justify-center">
+                  <div
+                    class="bg-slate-800 rounded-t-xl md:rounded-xl border border-slate-700/30 w-full md:max-w-4xl md:max-h-[90vh] overflow-hidden transform transition-all duration-300 translate-y-full"
+                    id="modalContent">
+                    <!-- Modal Header -->
+                    <div class="flex items-center justify-between p-6 border-b border-slate-700/30">
+                      <div>
+                        <h2 class="text-xl font-semibold text-white" id="modalTitle">Session Details</h2>
+                        <p class="text-slate-400 text-sm" id="modalSubtitle">Session ID: sess_1a2b3c4d</p>
+                      </div>
+                      <button onclick="closeSessionModal()"
+                        class="text-slate-400 hover:text-white transition-colors duration-200">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      </button>
+                    </div>
+
+                    <!-- Modal Body -->
+                    <div class="p-6 max-h-96 md:max-h-none overflow-y-auto">
+                      <!-- User Info -->
+                      <div class="mb-6">
+                        <h3 class="text-lg font-medium text-white mb-4">User Information</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div class="bg-slate-900/50 p-4 rounded-lg border border-slate-700/30">
+                            <p class="text-slate-400 text-sm">Email</p>
+                            <p class="text-white font-medium" id="userEmail">john.doe@company.com</p>
+                          </div>
+                          <div class="bg-slate-900/50 p-4 rounded-lg border border-slate-700/30">
+                            <p class="text-slate-400 text-sm">Location</p>
+                            <p class="text-white font-medium">New York, USA</p>
+                          </div>
+                          <div class="bg-slate-900/50 p-4 rounded-lg border border-slate-700/30">
+                            <p class="text-slate-400 text-sm">Device</p>
+                            <p class="text-white font-medium">Chrome on Windows</p>
+                          </div>
+                          <div class="bg-slate-900/50 p-4 rounded-lg border border-slate-700/30">
+                            <p class="text-slate-400 text-sm">Risk Score</p>
+                            <p class="text-white font-medium" id="riskScore">1.2</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Behavior Timeline -->
+                      <div class="mb-6">
+                        <h3 class="text-lg font-medium text-white mb-4">Behavior Timeline</h3>
+                        <div class="space-y-3">
+                          <div
+                            class="flex items-center space-x-3 p-3 bg-slate-900/50 rounded-lg border border-slate-700/30">
+                            <div class="w-2 h-2 bg-emerald-400 rounded-full"></div>
+                            <div class="flex-1">
+                              <p class="text-white text-sm">Login successful</p>
+                              <p class="text-slate-400 text-xs">2 hours ago</p>
+                            </div>
+                          </div>
+                          <div
+                            class="flex items-center space-x-3 p-3 bg-slate-900/50 rounded-lg border border-slate-700/30">
+                            <div class="w-2 h-2 bg-blue-400 rounded-full"></div>
+                            <div class="flex-1">
+                              <p class="text-white text-sm">Accessed dashboard</p>
+                              <p class="text-slate-400 text-xs">1 hour 45 minutes ago</p>
+                            </div>
+                          </div>
+                          <div
+                            class="flex items-center space-x-3 p-3 bg-slate-900/50 rounded-lg border border-slate-700/30">
+                            <div class="w-2 h-2 bg-yellow-400 rounded-full"></div>
+                            <div class="flex-1">
+                              <p class="text-white text-sm">Multiple failed attempts</p>
+                              <p class="text-slate-400 text-xs">30 minutes ago</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Trace Viewer -->
+                      <div class="mb-6">
+                        <h3 class="text-lg font-medium text-white mb-4">
+                          Session Trace
+                          <span
+                            class="text-emerald-400 underline decoration-emerald-400/50 decoration-2 underline-offset-2">ID:
+                            trace_abc123</span>
+                        </h3>
+                        <div
+                          class="bg-slate-900 rounded-lg border border-slate-700/30 h-48 flex items-center justify-center">
+                          <p class="text-slate-400">Trace viewer loading...</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Modal Footer -->
+                    <div class="p-6 border-t border-slate-700/30 flex flex-col sm:flex-row gap-3">
+                      <button
+                        class="flex-1 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-medium transition-all duration-200 hover:shadow-lg hover:shadow-blue-500/30">
+                        Re-authenticate
+                      </button>
+                      <button
+                        class="flex-1 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg font-medium transition-all duration-200 hover:shadow-lg hover:shadow-red-500/30">
+                        Lock Session
+                      </button>
+                      <button
+                        class="flex-1 px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg font-medium transition-all duration-200 hover:shadow-lg hover:shadow-emerald-500/30">
+                        Allow Session
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <script>
+              // Filter functionality
+              document.addEventListener('DOMContentLoaded', function () {
+                const filterButtons = document.querySelectorAll('[data-filter]');
+                const sessionItems = document.querySelectorAll('.session-item');
+
+                filterButtons.forEach(button => {
+                  button.addEventListener('click', function () {
+                    const filter = this.getAttribute('data-filter');
+
+                    // Update active filter button
+                    filterButtons.forEach(btn => {
+                      btn.classList.remove('ring-2', 'ring-offset-2', 'ring-offset-slate-900');
+                    });
+                    this.classList.add('ring-2', 'ring-offset-2', 'ring-offset-slate-900');
+
+                    // Filter sessions with animation
+                    sessionItems.forEach((item, index) => {
+                      const risk = item.getAttribute('data-risk');
+
+                      if (filter === 'all' || risk === filter) {
+                        setTimeout(() => {
+                          item.style.display = 'block';
+                          item.style.opacity = '0';
+                          item.style.transform = 'translateX(-20px)';
+
+                          setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.transform = 'translateX(0)';
+                          }, 50);
+                        }, index * 100);
+                      } else {
+                        item.style.opacity = '0';
+                        item.style.transform = 'translateX(20px)';
+                        setTimeout(() => {
+                          item.style.display = 'none';
+                        }, 300);
+                      }
+                    });
+                  });
+                });
+
+                // Add transition styles
+                sessionItems.forEach(item => {
+                  item.style.transition = 'all 0.3s ease';
+                });
+              });
+
+              // Modal functionality
+              let currentFocusedElement = null;
+
+              function openSessionModal(sessionId) {
+                currentFocusedElement = document.activeElement;
+                const modal = document.getElementById('sessionModal');
+                const modalContent = document.getElementById('modalContent');
+
+                // Prevent body scrolling
+                document.body.style.overflow = 'hidden';
+
+                // Show modal
+                modal.classList.remove('hidden');
+                modal.setAttribute('aria-hidden', 'false');
+
+                // Animate modal in
+                setTimeout(() => {
+                  modalContent.style.transform = 'translateY(0)';
+                }, 10);
+
+                // Focus trap
+                trapFocus(modal);
+              }
+
+              function closeSessionModal() {
+                const modal = document.getElementById('sessionModal');
+                const modalContent = document.getElementById('modalContent');
+
+                // Animate modal out
+                modalContent.style.transform = 'translateY(100%)';
+
+                setTimeout(() => {
+                  modal.classList.add('hidden');
+                  modal.setAttribute('aria-hidden', 'true');
+                  document.body.style.overflow = '';
+
+                  // Return focus
+                  if (currentFocusedElement) {
+                    currentFocusedElement.focus();
+                  }
+                }, 300);
+              }
+
+              // ESC key handler
+              document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') {
+                  const modal = document.getElementById('sessionModal');
+                  if (!modal.classList.contains('hidden')) {
+                    closeSessionModal();
+                  }
+                }
+              });
+
+              // Focus trap function
+              function trapFocus(element) {
+                const focusableElements = element.querySelectorAll(
+                  'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+                );
+                const firstFocusableElement = focusableElements[0];
+                const lastFocusableElement = focusableElements[focusableElements.length - 1];
+
+                element.addEventListener('keydown', function (e) {
+                  if (e.key === 'Tab') {
+                    if (e.shiftKey) {
+                      if (document.activeElement === firstFocusableElement) {
+                        lastFocusableElement.focus();
+                        e.preventDefault();
+                      }
+                    } else {
+                      if (document.activeElement === lastFocusableElement) {
+                        firstFocusableElement.focus();
+                        e.preventDefault();
+                      }
+                    }
+                  }
+                });
+
+                firstFocusableElement.focus();
+              }
+
+              // Hover pulse animation for session items
+              document.addEventListener('DOMContentLoaded', function () {
+                const sessionItems = document.querySelectorAll('.session-item');
+
+                sessionItems.forEach(item => {
+                  item.addEventListener('mouseenter', function () {
+                    this.style.animation = 'pulse 2s infinite';
+                  });
+
+                  item.addEventListener('mouseleave', function () {
+                    this.style.animation = '';
+                  });
+                });
+              });
+            </script>
+
+            <section id="insights" class="min-h-screen bg-slate-900 p-6">
+              <div class="max-w-7xl mx-auto">
+                <!-- Header -->
+                <div class="mb-8">
+                  <h1 class="text-3xl font-bold text-white mb-2">Insights</h1>
+                  <p class="text-slate-400">Advanced user behavior analysis and threat intelligence</p>
+                </div>
+
+                <!-- User Behavior Graph -->
+                <div class="bg-slate-800 rounded-xl p-6 border border-slate-700/30 mb-8">
+                  <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-xl font-semibold text-white">User Behavior Network</h2>
+                    <div class="flex items-center space-x-4">
+                      <div class="flex items-center space-x-2">
+                        <div class="w-3 h-3 rounded-full" style="background-color: #14F0B3;"></div>
+                        <span class="text-slate-400 text-sm">Trusted</span>
+                      </div>
+                      <div class="flex items-center space-x-2">
+                        <div class="w-3 h-3 rounded-full" style="background-color: #FF9F45;"></div>
+                        <span class="text-slate-400 text-sm">Medium</span>
+                      </div>
+                      <div class="flex items-center space-x-2">
+                        <div class="w-3 h-3 rounded-full" style="background-color: #FF2E63;"></div>
+                        <span class="text-slate-400 text-sm">Suspicious</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="h-96 bg-slate-900 rounded-lg border border-slate-700/30 relative overflow-hidden"
+                    id="behaviorGraph">
+                    <canvas id="forceGraphCanvas" class="w-full h-full"></canvas>
+                    <div class="absolute inset-0 flex items-center justify-center" id="graphLoader">
+                      <div class="text-center">
+                        <div
+                          class="w-16 h-16 bg-slate-700 rounded-full flex items-center justify-center mb-4 mx-auto animate-pulse">
+                          <svg class="w-8 h-8 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M13 10V3L4 14h7v7l9-11h-7z" />
+                          </svg>
+                        </div>
+                        <p class="text-slate-400">Loading behavior network...</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Behavior Compare Panel -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                  <!-- Previous Behavior -->
+                  <div class="bg-slate-800 rounded-xl p-6 border border-slate-700/30">
+                    <h3 class="text-lg font-semibold text-white mb-4">Previous Session</h3>
+                    <div class="space-y-4">
+                      <div class="grid grid-cols-4 gap-2">
+                        <div class="h-8 bg-emerald-400/30 rounded transition-all duration-300 hover:bg-emerald-400/50">
+                        </div>
+                        <div class="h-8 bg-emerald-400/20 rounded transition-all duration-300 hover:bg-emerald-400/40">
+                        </div>
+                        <div class="h-8 bg-yellow-400/30 rounded transition-all duration-300 hover:bg-yellow-400/50">
+                        </div>
+                        <div class="h-8 bg-emerald-400/40 rounded transition-all duration-300 hover:bg-emerald-400/60">
+                        </div>
+                      </div>
+                      <div class="grid grid-cols-4 gap-2">
+                        <div class="h-8 bg-emerald-400/20 rounded transition-all duration-300 hover:bg-emerald-400/40">
+                        </div>
+                        <div class="h-8 bg-emerald-400/30 rounded transition-all duration-300 hover:bg-emerald-400/50">
+                        </div>
+                        <div class="h-8 bg-emerald-400/25 rounded transition-all duration-300 hover:bg-emerald-400/45">
+                        </div>
+                        <div class="h-8 bg-yellow-400/20 rounded transition-all duration-300 hover:bg-yellow-400/40">
+                        </div>
+                      </div>
+                      <div class="grid grid-cols-4 gap-2">
+                        <div class="h-8 bg-yellow-400/25 rounded transition-all duration-300 hover:bg-yellow-400/45">
+                        </div>
+                        <div class="h-8 bg-emerald-400/35 rounded transition-all duration-300 hover:bg-emerald-400/55">
+                        </div>
+                        <div class="h-8 bg-emerald-400/30 rounded transition-all duration-300 hover:bg-emerald-400/50">
+                        </div>
+                        <div class="h-8 bg-emerald-400/20 rounded transition-all duration-300 hover:bg-emerald-400/40">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="mt-4 p-3 bg-slate-900/50 rounded-lg border border-slate-700/30">
+                      <p class="text-slate-400 text-sm">Risk Score: <span
+                          class="text-emerald-400 font-medium">1.2</span></p>
+                      <p class="text-slate-400 text-sm">Duration: <span class="text-white">45 minutes</span></p>
+                    </div>
+                  </div>
+
+                  <!-- Current Behavior -->
+                  <div class="bg-slate-800 rounded-xl p-6 border border-slate-700/30">
+                    <h3 class="text-lg font-semibold text-white mb-4">Current Session</h3>
+                    <div class="space-y-4">
+                      <div class="grid grid-cols-4 gap-2">
+                        <div class="h-8 bg-red-400/40 rounded transition-all duration-300 hover:bg-red-400/60"></div>
+                        <div class="h-8 bg-red-400/30 rounded transition-all duration-300 hover:bg-red-400/50"></div>
+                        <div class="h-8 bg-yellow-400/40 rounded transition-all duration-300 hover:bg-yellow-400/60">
+                        </div>
+                        <div class="h-8 bg-red-400/35 rounded transition-all duration-300 hover:bg-red-400/55"></div>
+                      </div>
+                      <div class="grid grid-cols-4 gap-2">
+                        <div class="h-8 bg-yellow-400/30 rounded transition-all duration-300 hover:bg-yellow-400/50">
+                        </div>
+                        <div class="h-8 bg-red-400/45 rounded transition-all duration-300 hover:bg-red-400/65"></div>
+                        <div class="h-8 bg-red-400/40 rounded transition-all duration-300 hover:bg-red-400/60"></div>
+                        <div class="h-8 bg-yellow-400/35 rounded transition-all duration-300 hover:bg-yellow-400/55">
+                        </div>
+                      </div>
+                      <div class="grid grid-cols-4 gap-2">
+                        <div class="h-8 bg-red-400/50 rounded transition-all duration-300 hover:bg-red-400/70"></div>
+                        <div class="h-8 bg-red-400/30 rounded transition-all duration-300 hover:bg-red-400/50"></div>
+                        <div class="h-8 bg-red-400/40 rounded transition-all duration-300 hover:bg-red-400/60"></div>
+                        <div class="h-8 bg-yellow-400/40 rounded transition-all duration-300 hover:bg-yellow-400/60">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="mt-4 p-3 bg-slate-900/50 rounded-lg border border-slate-700/30">
+                      <p class="text-slate-400 text-sm">Risk Score: <span class="text-red-400 font-medium">4.7</span>
+                      </p>
+                      <p class="text-slate-400 text-sm">Duration: <span class="text-white">12 minutes</span></p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Geo Location Map -->
+                <div class="bg-slate-800 rounded-xl p-6 border border-slate-700/30">
+                  <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-xl font-semibold text-white">Global Session Activity</h2>
+                    <button onclick="openLocationDrawer()"
+                      class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-medium transition-all duration-200 hover:shadow-lg hover:shadow-blue-500/30">
+                      View Details
+                    </button>
+                  </div>
+                  <div class="h-96 bg-slate-900 rounded-lg border border-slate-700/30 relative overflow-hidden"
+                    id="geoMap">
+                    <!-- Simulated Map with Pulsing Markers -->
+                    <div class="absolute inset-0 bg-gradient-to-br from-slate-800 to-slate-900">
+                      <!-- Pulsing Marker 1 - New York -->
+                      <div
+                        class="absolute top-1/4 left-1/4 w-4 h-4 bg-emerald-400 rounded-full animate-ping opacity-75">
+                      </div>
+                      <div class="absolute top-1/4 left-1/4 w-2 h-2 bg-emerald-400 rounded-full"></div>
+
+                      <!-- Pulsing Marker 2 - London -->
+                      <div class="absolute top-1/3 left-1/2 w-4 h-4 bg-yellow-400 rounded-full animate-ping opacity-75"
+                        style="animation-delay: 0.5s;"></div>
+                      <div class="absolute top-1/3 left-1/2 w-2 h-2 bg-yellow-400 rounded-full"></div>
+
+                      <!-- Pulsing Marker 3 - Tokyo -->
+                      <div class="absolute top-2/3 right-1/4 w-4 h-4 bg-red-400 rounded-full animate-ping opacity-75"
+                        style="animation-delay: 1s;"></div>
+                      <div class="absolute top-2/3 right-1/4 w-2 h-2 bg-red-400 rounded-full"></div>
+
+                      <!-- Pulsing Marker 4 - Sydney -->
+                      <div
+                        class="absolute bottom-1/4 right-1/3 w-4 h-4 bg-emerald-400 rounded-full animate-ping opacity-75"
+                        style="animation-delay: 1.5s;"></div>
+                      <div class="absolute bottom-1/4 right-1/3 w-2 h-2 bg-emerald-400 rounded-full"></div>
+
+                      <!-- Pulsing Marker 5 - São Paulo -->
+                      <div
+                        class="absolute bottom-1/3 left-1/3 w-4 h-4 bg-yellow-400 rounded-full animate-ping opacity-75"
+                        style="animation-delay: 2s;"></div>
+                      <div class="absolute bottom-1/3 left-1/3 w-2 h-2 bg-yellow-400 rounded-full"></div>
+                    </div>
+
+                    <!-- Map Overlay Info -->
+                    <div
+                      class="absolute bottom-4 left-4 bg-slate-800/90 backdrop-blur-sm rounded-lg p-3 border border-slate-700/30">
+                      <p class="text-white text-sm font-medium">Active Sessions: 1,247</p>
+                      <p class="text-slate-400 text-xs">Last updated: 2 seconds ago</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Location Details Drawer -->
+              <div id="locationDrawer"
+                class="fixed inset-y-0 right-0 z-50 w-96 bg-slate-800 border-l border-slate-700/30 transform translate-x-full transition-transform duration-300 hidden"
+                aria-modal="true" aria-hidden="true">
+                <!-- Drawer Header -->
+                <div class="flex items-center justify-between p-6 border-b border-slate-700/30">
+                  <h3 class="text-xl font-semibold text-white">Location Details</h3>
+                  <button onclick="closeLocationDrawer()"
+                    class="text-slate-400 hover:text-white transition-colors duration-200">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+
+                <!-- Drawer Content -->
+                <div class="p-6 overflow-y-auto h-full">
+                  <div class="space-y-4">
+                    <!-- Location Item 1 -->
+                    <div class="p-4 bg-slate-900/50 rounded-lg border border-slate-700/30">
+                      <div class="flex items-center justify-between mb-2">
+                        <h4 class="text-white font-medium">New York, USA</h4>
+                        <span class="px-2 py-1 rounded-full text-xs font-medium bg-emerald-400/20 text-emerald-400">Low
+                          Risk</span>
+                      </div>
+                      <p class="text-slate-400 text-sm">Active Sessions: 342</p>
+                      <p class="text-slate-400 text-sm">Avg Risk Score: 1.8</p>
+                    </div>
+
+                    <!-- Location Item 2 -->
+                    <div class="p-4 bg-slate-900/50 rounded-lg border border-slate-700/30">
+                      <div class="flex items-center justify-between mb-2">
+                        <h4 class="text-white font-medium">London, UK</h4>
+                        <span class="px-2 py-1 rounded-full text-xs font-medium bg-yellow-400/20 text-yellow-400">Medium
+                          Risk</span>
+                      </div>
+                      <p class="text-slate-400 text-sm">Active Sessions: 198</p>
+                      <p class="text-slate-400 text-sm">Avg Risk Score: 3.2</p>
+                    </div>
+
+                    <!-- Location Item 3 -->
+                    <div class="p-4 bg-slate-900/50 rounded-lg border border-slate-700/30">
+                      <div class="flex items-center justify-between mb-2">
+                        <h4 class="text-white font-medium">Tokyo, Japan</h4>
+                        <span class="px-2 py-1 rounded-full text-xs font-medium bg-red-400/20 text-red-400">High
+                          Risk</span>
+                      </div>
+                      <p class="text-slate-400 text-sm">Active Sessions: 89</p>
+                      <p class="text-slate-400 text-sm">Avg Risk Score: 6.7</p>
+                    </div>
+
+                    <!-- Location Item 4 -->
+                    <div class="p-4 bg-slate-900/50 rounded-lg border border-slate-700/30">
+                      <div class="flex items-center justify-between mb-2">
+                        <h4 class="text-white font-medium">Sydney, Australia</h4>
+                        <span class="px-2 py-1 rounded-full text-xs font-medium bg-emerald-400/20 text-emerald-400">Low
+                          Risk</span>
+                      </div>
+                      <p class="text-slate-400 text-sm">Active Sessions: 156</p>
+                      <p class="text-slate-400 text-sm">Avg Risk Score: 2.1</p>
+                    </div>
+
+                    <!-- Location Item 5 -->
+                    <div class="p-4 bg-slate-900/50 rounded-lg border border-slate-700/30">
+                      <div class="flex items-center justify-between mb-2">
+                        <h4 class="text-white font-medium">São Paulo, Brazil</h4>
+                        <span class="px-2 py-1 rounded-full text-xs font-medium bg-yellow-400/20 text-yellow-400">Medium
+                          Risk</span>
+                      </div>
+                      <p class="text-slate-400 text-sm">Active Sessions: 267</p>
+                      <p class="text-slate-400 text-sm">Avg Risk Score: 2.9</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Drawer Backdrop -->
+              <div id="drawerBackdrop" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 hidden"
+                onclick="closeLocationDrawer()"></div>
+            </section>
+            <script>
+              // Force Graph Simulation
+              document.addEventListener('DOMContentLoaded', function () {
+                const canvas = document.getElementById('forceGraphCanvas');
+                const ctx = canvas.getContext('2d');
+                const loader = document.getElementById('graphLoader');
+
+                // Set canvas size
+                function resizeCanvas() {
+                  const rect = canvas.getBoundingClientRect();
+                  canvas.width = rect.width;
+                  canvas.height = rect.height;
+                }
+
+                resizeCanvas();
+                window.addEventListener('resize', resizeCanvas);
+
+                // Simulate loading
+                setTimeout(() => {
+                  loader.style.display = 'none';
+                  initForceGraph();
+                }, 2000);
+
+                function initForceGraph() {
+                  const nodes = [
+                    { id: 1, x: canvas.width * 0.3, y: canvas.height * 0.3, color: '#14F0B3', radius: 8, vx: 0, vy: 0 },
+                    { id: 2, x: canvas.width * 0.7, y: canvas.height * 0.4, color: '#FF9F45', radius: 6, vx: 0, vy: 0 },
+                    { id: 3, x: canvas.width * 0.5, y: canvas.height * 0.6, color: '#FF2E63', radius: 10, vx: 0, vy: 0 },
+                    { id: 4, x: canvas.width * 0.2, y: canvas.height * 0.7, color: '#14F0B3', radius: 7, vx: 0, vy: 0 },
+                    { id: 5, x: canvas.width * 0.8, y: canvas.height * 0.2, color: '#FF9F45', radius: 5, vx: 0, vy: 0 },
+                    { id: 6, x: canvas.width * 0.6, y: canvas.height * 0.8, color: '#14F0B3', radius: 9, vx: 0, vy: 0 }
+                  ];
+
+                  const links = [
+                    { source: 0, target: 1 },
+                    { source: 1, target: 2 },
+                    { source: 2, target: 3 },
+                    { source: 3, target: 0 },
+                    { source: 4, target: 1 },
+                    { source: 5, target: 2 }
+                  ];
+
+                  function animate() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                    // Draw links
+                    ctx.strokeStyle = '#475569';
+                    ctx.lineWidth = 1;
+                    links.forEach(link => {
+                      const source = nodes[link.source];
+                      const target = nodes[link.target];
+                      ctx.beginPath();
+                      ctx.moveTo(source.x, source.y);
+                      ctx.lineTo(target.x, target.y);
+                      ctx.stroke();
+                    });
+
+                    // Draw nodes
+                    nodes.forEach(node => {
+                      ctx.beginPath();
+                      ctx.arc(node.x, node.y, node.radius, 0, 2 * Math.PI);
+                      ctx.fillStyle = node.color;
+                      ctx.fill();
+                      ctx.strokeStyle = node.color;
+                      ctx.lineWidth = 2;
+                      ctx.stroke();
+
+                      // Add glow effect
+                      ctx.shadowColor = node.color;
+                      ctx.shadowBlur = 10;
+                      ctx.fill();
+                      ctx.shadowBlur = 0;
+                    });
+
+                    // Simple physics simulation
+                    nodes.forEach(node => {
+                      node.vx *= 0.99;
+                      node.vy *= 0.99;
+                      node.x += node.vx;
+                      node.y += node.vy;
+
+                      // Boundary collision
+                      if (node.x < node.radius || node.x > canvas.width - node.radius) {
+                        node.vx *= -0.8;
+                        node.x = Math.max(node.radius, Math.min(canvas.width - node.radius, node.x));
+                      }
+                      if (node.y < node.radius || node.y > canvas.height - node.radius) {
+                        node.vy *= -0.8;
+                        node.y = Math.max(node.radius, Math.min(canvas.height - node.radius, node.y));
+                      }
+                    });
+
+                    requestAnimationFrame(animate);
+                  }
+
+                  animate();
+
+                  // Add random movement
+                  setInterval(() => {
+                    nodes.forEach(node => {
+                      node.vx += (Math.random() - 0.5) * 0.5;
+                      node.vy += (Math.random() - 0.5) * 0.5;
+                    });
+                  }, 2000);
+                }
+              });
+
+              // Location Drawer Functions
+              let currentFocusedElement = null;
+
+              function openLocationDrawer() {
+                currentFocusedElement = document.activeElement;
+                const drawer = document.getElementById('locationDrawer');
+                const backdrop = document.getElementById('drawerBackdrop');
+
+                // Prevent body scrolling
+                document.body.style.overflow = 'hidden';
+
+                // Show backdrop and drawer
+                backdrop.classList.remove('hidden');
+                drawer.classList.remove('hidden');
+                drawer.setAttribute('aria-hidden', 'false');
+
+                // Animate drawer in
+                setTimeout(() => {
+                  drawer.style.transform = 'translateX(0)';
+                }, 10);
+
+                // Focus trap
+                trapFocus(drawer);
+              }
+
+              function closeLocationDrawer() {
+                const drawer = document.getElementById('locationDrawer');
+                const backdrop = document.getElementById('drawerBackdrop');
+
+                // Animate drawer out
+                drawer.style.transform = 'translateX(100%)';
+
+                setTimeout(() => {
+                  drawer.classList.add('hidden');
+                  backdrop.classList.add('hidden');
+                  drawer.setAttribute('aria-hidden', 'true');
+                  document.body.style.overflow = '';
+
+                  // Return focus
+                  if (currentFocusedElement) {
+                    currentFocusedElement.focus();
+                  }
+                }, 300);
+              }
+
+              // ESC key handler
+              document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') {
+                  const drawer = document.getElementById('locationDrawer');
+                  if (!drawer.classList.contains('hidden')) {
+                    closeLocationDrawer();
+                  }
+                }
+              });
+
+              // Focus trap function
+              function trapFocus(element) {
+                const focusableElements = element.querySelectorAll(
+                  'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+                );
+                const firstFocusableElement = focusableElements[0];
+                const lastFocusableElement = focusableElements[focusableElements.length - 1];
+
+                element.addEventListener('keydown', function (e) {
+                  if (e.key === 'Tab') {
+                    if (e.shiftKey) {
+                      if (document.activeElement === firstFocusableElement) {
+                        lastFocusableElement.focus();
+                        e.preventDefault();
+                      }
+                    } else {
+                      if (document.activeElement === lastFocusableElement) {
+                        firstFocusableElement.focus();
+                        e.preventDefault();
+                      }
+                    }
+                  }
+                });
+
+                firstFocusableElement.focus();
+              }
+
+              // Behavior tiles animation
+              document.addEventListener('DOMContentLoaded', function () {
+                const tiles = document.querySelectorAll('[class*="bg-"][class*="rounded"]');
+
+                setInterval(() => {
+                  tiles.forEach((tile, index) => {
+                    setTimeout(() => {
+                      tile.style.transform = 'scale(1.05)';
+                      setTimeout(() => {
+                        tile.style.transform = 'scale(1)';
+                      }, 200);
+                    }, index * 100);
+                  });
+                }, 5000);
+              });
+            </script>
+
+            <section id="security" class="min-h-screen bg-slate-900 p-6">
+              <div class="max-w-7xl mx-auto">
+                <!-- Header -->
+                <div class="mb-8">
+                  <h1 class="text-3xl font-bold text-white mb-2">Security</h1>
+                  <p class="text-slate-400">Configure security triggers and monitor audit logs</p>
+                </div>
+
+                <!-- Trigger Rule Form -->
+                <div class="bg-slate-800 rounded-xl p-6 border border-slate-700/30 mb-8">
+                  <h2 class="text-xl font-semibold text-white mb-6">Security Trigger Rules</h2>
+
+                  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Risk Score Threshold -->
+                    <div class="space-y-6">
+                      <div>
+                        <label class="block text-white font-medium mb-3">Risk Score Threshold</label>
+                        <div class="relative">
+                          <input type="range" min="0" max="10" value="5"
+                            class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer slider"
+                            id="riskSlider">
+                          <div class="flex justify-between text-slate-400 text-sm mt-2">
+                            <span>0</span>
+                            <span id="riskValue" class="text-white font-medium">5.0</span>
+                            <span>10</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Session Duration Limit -->
+                      <div>
+                        <label class="block text-white font-medium mb-3">Session Duration Limit (hours)</label>
+                        <div class="relative">
+                          <input type="range" min="1" max="24" value="8"
+                            class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer slider"
+                            id="durationSlider">
+                          <div class="flex justify-between text-slate-400 text-sm mt-2">
+                            <span>1h</span>
+                            <span id="durationValue" class="text-white font-medium">8h</span>
+                            <span>24h</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Failed Attempts Threshold -->
+                      <div>
+                        <label class="block text-white font-medium mb-3">Failed Attempts Threshold</label>
+                        <div class="relative">
+                          <input type="range" min="3" max="20" value="5"
+                            class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer slider"
+                            id="attemptsSlider">
+                          <div class="flex justify-between text-slate-400 text-sm mt-2">
+                            <span>3</span>
+                            <span id="attemptsValue" class="text-white font-medium">5</span>
+                            <span>20</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Toggle Controls -->
+                    <div class="space-y-6">
+                      <div
+                        class="flex items-center justify-between p-4 bg-slate-900/50 rounded-lg border border-slate-700/30">
+                        <div>
+                          <h3 class="text-white font-medium">Auto-Lock Suspicious Sessions</h3>
+                          <p class="text-slate-400 text-sm">Automatically lock high-risk sessions</p>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                          <input type="checkbox" class="sr-only peer" id="autoLockToggle" checked>
+                          <div
+                            class="w-11 h-6 bg-slate-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-emerald-300/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-500 toggle-glow">
+                          </div>
+                        </label>
+                      </div>
+
+                      <div
+                        class="flex items-center justify-between p-4 bg-slate-900/50 rounded-lg border border-slate-700/30">
+                        <div>
+                          <h3 class="text-white font-medium">Real-time Monitoring</h3>
+                          <p class="text-slate-400 text-sm">Enable continuous session monitoring</p>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                          <input type="checkbox" class="sr-only peer" id="monitoringToggle" checked>
+                          <div
+                            class="w-11 h-6 bg-slate-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-emerald-300/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-500 toggle-glow">
+                          </div>
+                        </label>
+                      </div>
+
+                      <div
+                        class="flex items-center justify-between p-4 bg-slate-900/50 rounded-lg border border-slate-700/30">
+                        <div>
+                          <h3 class="text-white font-medium">Email Notifications</h3>
+                          <p class="text-slate-400 text-sm">Send alerts for security events</p>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                          <input type="checkbox" class="sr-only peer" id="emailToggle">
+                          <div
+                            class="w-11 h-6 bg-slate-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-emerald-300/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-500 toggle-glow">
+                          </div>
+                        </label>
+                      </div>
+
+                      <div
+                        class="flex items-center justify-between p-4 bg-slate-900/50 rounded-lg border border-slate-700/30">
+                        <div>
+                          <h3 class="text-white font-medium">Geo-blocking</h3>
+                          <p class="text-slate-400 text-sm">Block sessions from restricted regions</p>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                          <input type="checkbox" class="sr-only peer" id="geoToggle">
+                          <div
+                            class="w-11 h-6 bg-slate-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-emerald-300/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-500 toggle-glow">
+                          </div>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Save Button -->
+                  <div class="mt-8 flex justify-end">
+                    <button id="saveButton"
+                      class="px-8 py-3 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg font-medium transition-all duration-300 hover:shadow-lg hover:shadow-emerald-500/30 glow-button">
+                      Save Configuration
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Audit Log Table -->
+                <div class="bg-slate-800 rounded-xl border border-slate-700/30 overflow-hidden">
+                  <div class="p-6 border-b border-slate-700/30">
+                    <div class="flex items-center justify-between">
+                      <h2 class="text-xl font-semibold text-white">Audit Log</h2>
+                      <div class="flex items-center space-x-3">
+                        <select
+                          class="bg-slate-700 border border-slate-600 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                          <option>All Events</option>
+                          <option>Security Events</option>
+                          <option>Login Events</option>
+                          <option>System Events</option>
+                        </select>
+                        <button
+                          class="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded-lg text-sm transition-colors duration-200">
+                          Export
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Table Header -->
+                  <div class="bg-slate-900/50 px-6 py-3 border-b border-slate-700/30">
+                    <div class="grid grid-cols-12 gap-4 text-slate-400 text-sm font-medium">
+                      <div class="col-span-3">Timestamp</div>
+                      <div class="col-span-2">Event Type</div>
+                      <div class="col-span-3">User</div>
+                      <div class="col-span-2">Severity</div>
+                      <div class="col-span-2">Action</div>
+                    </div>
+                  </div>
+
+                  <!-- Table Body -->
+                  <div class="divide-y divide-slate-700/30" id="auditLogBody">
+                    <!-- Log Entry 1 -->
+                    <div class="px-6 py-4 hover:bg-slate-700/30 transition-all duration-300 log-row"
+                      style="opacity: 0; transform: translateX(-20px);">
+                      <div class="grid grid-cols-12 gap-4 items-center">
+                        <div class="col-span-3 text-slate-300 text-sm">2024-01-15 14:32:18</div>
+                        <div class="col-span-2 text-white text-sm">Failed Login</div>
+                        <div class="col-span-3 text-slate-300 text-sm">unknown@suspicious.net</div>
+                        <div class="col-span-2">
+                          <span
+                            class="px-2 py-1 rounded-full text-xs font-medium bg-red-400/20 text-red-400 border border-red-400/30">
+                            High
+                          </span>
+                        </div>
+                        <div class="col-span-2">
+                          <button class="text-blue-400 hover:text-blue-300 text-sm transition-colors duration-200">View
+                            Details</button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Log Entry 2 -->
+                    <div class="px-6 py-4 hover:bg-slate-700/30 transition-all duration-300 log-row"
+                      style="opacity: 0; transform: translateX(-20px);">
+                      <div class="grid grid-cols-12 gap-4 items-center">
+                        <div class="col-span-3 text-slate-300 text-sm">2024-01-15 14:28:45</div>
+                        <div class="col-span-2 text-white text-sm">Session Locked</div>
+                        <div class="col-span-3 text-slate-300 text-sm">sarah.wilson@corp.com</div>
+                        <div class="col-span-2">
+                          <span
+                            class="px-2 py-1 rounded-full text-xs font-medium bg-yellow-400/20 text-yellow-400 border border-yellow-400/30">
+                            Medium
+                          </span>
+                        </div>
+                        <div class="col-span-2">
+                          <button class="text-blue-400 hover:text-blue-300 text-sm transition-colors duration-200">View
+                            Details</button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Log Entry 3 -->
+                    <div class="px-6 py-4 hover:bg-slate-700/30 transition-all duration-300 log-row"
+                      style="opacity: 0; transform: translateX(-20px);">
+                      <div class="grid grid-cols-12 gap-4 items-center">
+                        <div class="col-span-3 text-slate-300 text-sm">2024-01-15 14:25:12</div>
+                        <div class="col-span-2 text-white text-sm">Login Success</div>
+                        <div class="col-span-3 text-slate-300 text-sm">john.doe@company.com</div>
+                        <div class="col-span-2">
+                          <span
+                            class="px-2 py-1 rounded-full text-xs font-medium bg-emerald-400/20 text-emerald-400 border border-emerald-400/30">
+                            Low
+                          </span>
+                        </div>
+                        <div class="col-span-2">
+                          <button class="text-blue-400 hover:text-blue-300 text-sm transition-colors duration-200">View
+                            Details</button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Log Entry 4 -->
+                    <div class="px-6 py-4 hover:bg-slate-700/30 transition-all duration-300 log-row"
+                      style="opacity: 0; transform: translateX(-20px);">
+                      <div class="grid grid-cols-12 gap-4 items-center">
+                        <div class="col-span-3 text-slate-300 text-sm">2024-01-15 14:20:33</div>
+                        <div class="col-span-2 text-white text-sm">Config Change</div>
+                        <div class="col-span-3 text-slate-300 text-sm">admin@secureauth.com</div>
+                        <div class="col-span-2">
+                          <span
+                            class="px-2 py-1 rounded-full text-xs font-medium bg-emerald-400/20 text-emerald-400 border border-emerald-400/30">
+                            Low
+                          </span>
+                        </div>
+                        <div class="col-span-2">
+                          <button class="text-blue-400 hover:text-blue-300 text-sm transition-colors duration-200">View
+                            Details</button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Log Entry 5 -->
+                    <div class="px-6 py-4 hover:bg-slate-700/30 transition-all duration-300 log-row"
+                      style="opacity: 0; transform: translateX(-20px);">
+                      <div class="grid grid-cols-12 gap-4 items-center">
+                        <div class="col-span-3 text-slate-300 text-sm">2024-01-15 14:15:07</div>
+                        <div class="col-span-2 text-white text-sm">Suspicious Activity</div>
+                        <div class="col-span-3 text-slate-300 text-sm">test@malicious.org</div>
+                        <div class="col-span-2">
+                          <span
+                            class="px-2 py-1 rounded-full text-xs font-medium bg-red-400/20 text-red-400 border border-red-400/30">
+                            High
+                          </span>
+                        </div>
+                        <div class="col-span-2">
+                          <button class="text-blue-400 hover:text-blue-300 text-sm transition-colors duration-200">View
+                            Details</button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Log Entry 6 -->
+                    <div class="px-6 py-4 hover:bg-slate-700/30 transition-all duration-300 log-row"
+                      style="opacity: 0; transform: translateX(-20px);">
+                      <div class="grid grid-cols-12 gap-4 items-center">
+                        <div class="col-span-3 text-slate-300 text-sm">2024-01-15 14:10:22</div>
+                        <div class="col-span-2 text-white text-sm">Password Reset</div>
+                        <div class="col-span-3 text-slate-300 text-sm">mike.johnson@enterprise.com</div>
+                        <div class="col-span-2">
+                          <span
+                            class="px-2 py-1 rounded-full text-xs font-medium bg-yellow-400/20 text-yellow-400 border border-yellow-400/30">
+                            Medium
+                          </span>
+                        </div>
+                        <div class="col-span-2">
+                          <button class="text-blue-400 hover:text-blue-300 text-sm transition-colors duration-200">View
+                            Details</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Pagination -->
+                  <div class="px-6 py-4 border-t border-slate-700/30 flex items-center justify-between">
+                    <div class="text-slate-400 text-sm">
+                      Showing 1-6 of 247 entries
+                    </div>
+                    <div class="flex items-center space-x-2">
+                      <button
+                        class="px-3 py-1 bg-slate-700 hover:bg-slate-600 text-white rounded text-sm transition-colors duration-200">Previous</button>
+                      <button class="px-3 py-1 bg-emerald-500 text-white rounded text-sm">1</button>
+                      <button
+                        class="px-3 py-1 bg-slate-700 hover:bg-slate-600 text-white rounded text-sm transition-colors duration-200">2</button>
+                      <button
+                        class="px-3 py-1 bg-slate-700 hover:bg-slate-600 text-white rounded text-sm transition-colors duration-200">3</button>
+                      <button
+                        class="px-3 py-1 bg-slate-700 hover:bg-slate-600 text-white rounded text-sm transition-colors duration-200">Next</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <style>
+              .slider::-webkit-slider-thumb {
+                appearance: none;
+                height: 20px;
+                width: 20px;
+                border-radius: 50%;
+                background: #10b981;
+                cursor: pointer;
+                box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+                transition: all 0.3s ease;
+              }
+
+              .slider::-webkit-slider-thumb:hover {
+                box-shadow: 0 0 20px rgba(16, 185, 129, 0.8);
+                transform: scale(1.1);
+              }
+
+              .slider::-moz-range-thumb {
+                height: 20px;
+                width: 20px;
+                border-radius: 50%;
+                background: #10b981;
+                cursor: pointer;
+                border: none;
+                box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+                transition: all 0.3s ease;
+              }
+
+              .slider::-moz-range-thumb:hover {
+                box-shadow: 0 0 20px rgba(16, 185, 129, 0.8);
+                transform: scale(1.1);
+              }
+
+              .toggle-glow:checked {
+                box-shadow: 0 0 15px rgba(16, 185, 129, 0.5);
+              }
+
+              .glow-button:hover {
+                animation: pulse-glow 2s infinite;
+              }
+
+              @keyframes pulse-glow {
+
+                0%,
+                100% {
+                  box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+                }
+
+                50% {
+                  box-shadow: 0 0 30px rgba(16, 185, 129, 0.6);
+                }
+              }
+            </style>
+            <script>
+              // Slider functionality with glow effects
+              document.addEventListener('DOMContentLoaded', function () {
+                const riskSlider = document.getElementById('riskSlider');
+                const durationSlider = document.getElementById('durationSlider');
+                const attemptsSlider = document.getElementById('attemptsSlider');
+
+                const riskValue = document.getElementById('riskValue');
+                const durationValue = document.getElementById('durationValue');
+                const attemptsValue = document.getElementById('attemptsValue');
+
+                // Risk slider
+                riskSlider.addEventListener('input', function () {
+                  riskValue.textContent = parseFloat(this.value).toFixed(1);
+                  this.style.background = `linear-gradient(to right, #10b981 0%, #10b981 ${(this.value / 10) * 100}%, #374151 ${(this.value / 10) * 100}%, #374151 100%)`;
+                });
+
+                // Duration slider
+                durationSlider.addEventListener('input', function () {
+                  durationValue.textContent = this.value + 'h';
+                  this.style.background = `linear-gradient(to right, #10b981 0%, #10b981 ${(this.value / 24) * 100}%, #374151 ${(this.value / 24) * 100}%, #374151 100%)`;
+                });
+
+                // Attempts slider
+                attemptsSlider.addEventListener('input', function () {
+                  attemptsValue.textContent = this.value;
+                  this.style.background = `linear-gradient(to right, #10b981 0%, #10b981 ${((this.value - 3) / 17) * 100}%, #374151 ${((this.value - 3) / 17) * 100}%, #374151 100%)`;
+                });
+
+                // Initialize slider backgrounds
+                riskSlider.dispatchEvent(new Event('input'));
+                durationSlider.dispatchEvent(new Event('input'));
+                attemptsSlider.dispatchEvent(new Event('input'));
+
+                // Toggle glow effects
+                const toggles = document.querySelectorAll('input[type="checkbox"]');
+                toggles.forEach(toggle => {
+                  toggle.addEventListener('change', function () {
+                    const toggleDiv = this.nextElementSibling;
+                    if (this.checked) {
+                      toggleDiv.style.boxShadow = '0 0 15px rgba(16, 185, 129, 0.5)';
+                    } else {
+                      toggleDiv.style.boxShadow = 'none';
+                    }
+                  });
+                });
+
+                // Save button animation
+                const saveButton = document.getElementById('saveButton');
+                saveButton.addEventListener('click', function () {
+                  this.textContent = 'Saving...';
+                  this.disabled = true;
+
+                  setTimeout(() => {
+                    this.textContent = 'Saved!';
+                    this.classList.remove('bg-emerald-500', 'hover:bg-emerald-600');
+                    this.classList.add('bg-green-500');
+
+                    setTimeout(() => {
+                      this.textContent = 'Save Configuration';
+                      this.disabled = false;
+                      this.classList.remove('bg-green-500');
+                      this.classList.add('bg-emerald-500', 'hover:bg-emerald-600');
+                    }, 2000);
+                  }, 1500);
+                });
+
+                // Animate audit log rows
+                const logRows = document.querySelectorAll('.log-row');
+                logRows.forEach((row, index) => {
+                  setTimeout(() => {
+                    row.style.opacity = '1';
+                    row.style.transform = 'translateX(0)';
+                    row.style.transition = 'all 0.5s ease';
+                  }, index * 100);
+                });
+
+                // Add new log entries periodically
+                setInterval(() => {
+                  addNewLogEntry();
+                }, 10000);
+              });
+
+              function addNewLogEntry() {
+                const logBody = document.getElementById('auditLogBody');
+                const now = new Date();
+                const timestamp = now.toISOString().slice(0, 19).replace('T', ' ');
+
+                const events = ['Login Success', 'Failed Login', 'Session Timeout', 'Config Change', 'Password Reset'];
+                const users = ['user@example.com', 'admin@company.com', 'test@domain.org'];
+                const severities = [
+                  { name: 'Low', color: 'emerald-400' },
+                  { name: 'Medium', color: 'yellow-400' },
+                  { name: 'High', color: 'red-400' }
+                ];
+
+                const randomEvent = events[Math.floor(Math.random() * events.length)];
+                const randomUser = users[Math.floor(Math.random() * users.length)];
+                const randomSeverity = severities[Math.floor(Math.random() * severities.length)];
+
+                const newRow = document.createElement('div');
+                newRow.className = 'px-6 py-4 hover:bg-slate-700/30 transition-all duration-300 log-row';
+                newRow.style.opacity = '0';
+                newRow.style.transform = 'translateX(-20px)';
+
+                newRow.innerHTML = `
+    <div class="grid grid-cols-12 gap-4 items-center">
+      <div class="col-span-3 text-slate-300 text-sm">${timestamp}</div>
+      <div class="col-span-2 text-white text-sm">${randomEvent}</div>
+      <div class="col-span-3 text-slate-300 text-sm">${randomUser}</div>
+      <div class="col-span-2">
+        <span class="px-2 py-1 rounded-full text-xs font-medium bg-${randomSeverity.color}/20 text-${randomSeverity.color} border border-${randomSeverity.color}/30">
+          ${randomSeverity.name}
+        </span>
+      </div>
+      <div class="col-span-2">
+        <button class="text-blue-400 hover:text-blue-300 text-sm transition-colors duration-200">View Details</button>
+      </div>
+    </div>
+  `;
+
+                logBody.insertBefore(newRow, logBody.firstChild);
+
+                // Animate in
+                setTimeout(() => {
+                  newRow.style.opacity = '1';
+                  newRow.style.transform = 'translateX(0)';
+                  newRow.style.transition = 'all 0.5s ease';
+                }, 100);
+
+                // Remove excess rows
+                const rows = logBody.querySelectorAll('.log-row');
+                if (rows.length > 10) {
+                  rows[rows.length - 1].remove();
+                }
+              }
+            </script>
+
+            <section id="admin" class="py-16 px-4 sm:px-6 lg:px-8 bg-slate-900" style="display: block;">
+              <div class="max-w-7xl mx-auto">
+                <!-- Section Header -->
+                <div class="text-center mb-12">
+                  <h2 class="text-4xl font-bold text-white mb-4">Admin Settings</h2>
+                  <p class="text-slate-400 text-lg max-w-2xl mx-auto">Configure system settings and debug sensor data
+                  </p>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-8">
+                  <!-- Settings Form Panel -->
+                  <div class="bg-slate-800 rounded-xl border border-slate-700/50 p-8">
+                    <div class="flex items-center justify-between mb-6">
+                      <h3 class="text-2xl font-semibold text-white">System Configuration</h3>
+                      <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                    </div>
+
+                    <form class="space-y-6">
+                      <!-- API Configuration -->
+                      <div class="space-y-4">
+                        <div class="relative">
+                          <input type="text" id="api-endpoint"
+                            class="peer w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-3 text-white placeholder-transparent focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition-all duration-300"
+                            placeholder="API Endpoint" value="https://api.security-platform.com/v1">
+                          <label for="api-endpoint"
+                            class="absolute left-4 -top-2.5 bg-slate-800 px-2 text-sm text-slate-400 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-slate-500 peer-placeholder-shown:top-3 peer-focus:-top-2.5 peer-focus:text-cyan-400 peer-focus:text-sm">API
+                            Endpoint</label>
+                        </div>
+
+                        <div class="relative">
+                          <input type="password" id="api-key"
+                            class="peer w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-3 text-white placeholder-transparent focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition-all duration-300"
+                            placeholder="API Key" value="sk-1234567890abcdef">
+                          <label for="api-key"
+                            class="absolute left-4 -top-2.5 bg-slate-800 px-2 text-sm text-slate-400 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-slate-500 peer-placeholder-shown:top-3 peer-focus:-top-2.5 peer-focus:text-cyan-400 peer-focus:text-sm">API
+                            Key</label>
+                        </div>
+
+                        <div class="relative">
+                          <select id="environment"
+                            class="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition-all duration-300">
+                            <option value="production">Production</option>
+                            <option value="staging">Staging</option>
+                            <option value="development">Development</option>
+                          </select>
+                          <label for="environment"
+                            class="absolute left-4 -top-2.5 bg-slate-800 px-2 text-sm text-cyan-400">Environment</label>
+                        </div>
+                      </div>
+
+                      <!-- Risk Thresholds -->
+                      <div class="space-y-4">
+                        <h4 class="text-lg font-medium text-white">Risk Thresholds</h4>
+
+                        <div class="space-y-3">
+                          <div>
+                            <label class="block text-sm text-slate-400 mb-2">Low Risk Threshold: <span
+                                class="text-green-400 font-mono">25</span></label>
+                            <input type="range" min="0" max="100" value="25"
+                              class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer slider-green">
+                          </div>
+
+                          <div>
+                            <label class="block text-sm text-slate-400 mb-2">Medium Risk Threshold: <span
+                                class="text-yellow-400 font-mono">65</span></label>
+                            <input type="range" min="0" max="100" value="65"
+                              class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer slider-yellow">
+                          </div>
+
+                          <div>
+                            <label class="block text-sm text-slate-400 mb-2">High Risk Threshold: <span
+                                class="text-red-400 font-mono">85</span></label>
+                            <input type="range" min="0" max="100" value="85"
+                              class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer slider-red">
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Action Buttons -->
+                      <div class="flex gap-4 pt-6">
+                        <button type="button" id="test-api-btn"
+                          class="flex-1 bg-cyan-600 hover:bg-cyan-700 text-white font-medium py-3 px-6 rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/25 focus:outline-none focus:ring-2 focus:ring-cyan-400">
+                          <span class="flex items-center justify-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            Test API Connection
+                          </span>
+                        </button>
+
+                        <button type="submit"
+                          class="flex-1 bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-6 rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-green-500/25 focus:outline-none focus:ring-2 focus:ring-green-400">
+                          Save Settings
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+
+                  <!-- Sensor Debug Panel -->
+                  <div class="bg-slate-800 rounded-xl border border-slate-700/50 p-8">
+                    <div class="flex items-center justify-between mb-6">
+                      <h3 class="text-2xl font-semibold text-white">Sensor Debug Panel</h3>
+                      <div class="flex items-center gap-2">
+                        <span class="text-sm text-slate-400">Debug Mode</span>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                          <input type="checkbox" class="sr-only peer" id="debug-toggle">
+                          <div
+                            class="w-11 h-6 bg-slate-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-cyan-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-cyan-600">
+                          </div>
+                        </label>
+                      </div>
+                    </div>
+
+                    <!-- Fake Sensor Controls -->
+                    <div class="space-y-6">
+                      <div class="grid grid-cols-2 gap-4">
+                        <button
+                          class="bg-slate-700 hover:bg-slate-600 border border-slate-600 rounded-lg p-4 text-left transition-all duration-300 hover:border-green-400 group">
+                          <div class="flex items-center justify-between mb-2">
+                            <span class="text-white font-medium">Mouse Sensor</span>
+                            <div class="w-2 h-2 bg-green-400 rounded-full group-hover:animate-pulse"></div>
+                          </div>
+                          <p class="text-sm text-slate-400">Inject fake mouse data</p>
+                        </button>
+
+                        <button
+                          class="bg-slate-700 hover:bg-slate-600 border border-slate-600 rounded-lg p-4 text-left transition-all duration-300 hover:border-yellow-400 group">
+                          <div class="flex items-center justify-between mb-2">
+                            <span class="text-white font-medium">Touch Sensor</span>
+                            <div class="w-2 h-2 bg-yellow-400 rounded-full group-hover:animate-pulse"></div>
+                          </div>
+                          <p class="text-sm text-slate-400">Simulate touch events</p>
+                        </button>
+
+                        <button
+                          class="bg-slate-700 hover:bg-slate-600 border border-slate-600 rounded-lg p-4 text-left transition-all duration-300 hover:border-red-400 group">
+                          <div class="flex items-center justify-between mb-2">
+                            <span class="text-white font-medium">Keyboard Sensor</span>
+                            <div class="w-2 h-2 bg-red-400 rounded-full group-hover:animate-pulse"></div>
+                          </div>
+                          <p class="text-sm text-slate-400">Generate key patterns</p>
+                        </button>
+
+                        <button
+                          class="bg-slate-700 hover:bg-slate-600 border border-slate-600 rounded-lg p-4 text-left transition-all duration-300 hover:border-purple-400 group">
+                          <div class="flex items-center justify-between mb-2">
+                            <span class="text-white font-medium">Device Sensor</span>
+                            <div class="w-2 h-2 bg-purple-400 rounded-full group-hover:animate-pulse"></div>
+                          </div>
+                          <p class="text-sm text-slate-400">Mock device metrics</p>
+                        </button>
+                      </div>
+
+                      <!-- Debug Log Terminal -->
+                      <div class="bg-slate-900 rounded-lg border border-slate-700 p-4">
+                        <div class="flex items-center justify-between mb-3">
+                          <h4 class="text-sm font-medium text-white">Debug Log</h4>
+                          <button class="text-slate-400 hover:text-white text-sm">Clear</button>
+                        </div>
+
+                        <div class="bg-black rounded p-3 font-mono text-sm text-green-400 h-48 overflow-y-auto">
+                          <div class="space-y-1">
+                            <div class="text-slate-500">[2024-01-15 14:32:15]</div>
+                            <div class="text-green-400">✓ Mouse sensor initialized</div>
+                            <div class="text-slate-500">[2024-01-15 14:32:16]</div>
+                            <div class="text-yellow-400">⚠ Touch sensor calibrating...</div>
+                            <div class="text-slate-500">[2024-01-15 14:32:17]</div>
+                            <div class="text-green-400">✓ Keyboard sensor active</div>
+                            <div class="text-slate-500">[2024-01-15 14:32:18]</div>
+                            <div class="text-cyan-400">ℹ Device metrics collected</div>
+                            <div class="text-slate-500">[2024-01-15 14:32:19]</div>
+                            <div class="text-green-400">✓ All sensors operational</div>
+                            <div class="animate-pulse">_</div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Inject Data Button -->
+                      <button
+                        class="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-medium py-3 px-6 rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/25 focus:outline-none focus:ring-2 focus:ring-purple-400">
+                        <span class="flex items-center justify-center gap-2">
+                          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                          </svg>
+                          Inject Test Data
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- System Status Cards -->
+                <div class="grid md:grid-cols-3 gap-6 mt-12">
+                  <div class="bg-slate-800 rounded-xl border border-slate-700/50 p-6">
+                    <div class="flex items-center justify-between mb-4">
+                      <h4 class="text-lg font-medium text-white">API Status</h4>
+                      <div class="flex items-center gap-2">
+                        <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                        <span class="text-sm text-green-400">Online</span>
+                      </div>
+                    </div>
+                    <div class="space-y-2">
+                      <div class="flex justify-between text-sm">
+                        <span class="text-slate-400">Response Time</span>
+                        <span class="text-white">45ms</span>
+                      </div>
+                      <div class="flex justify-between text-sm">
+                        <span class="text-slate-400">Uptime</span>
+                        <span class="text-white">99.9%</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="bg-slate-800 rounded-xl border border-slate-700/50 p-6">
+                    <div class="flex items-center justify-between mb-4">
+                      <h4 class="text-lg font-medium text-white">Database</h4>
+                      <div class="flex items-center gap-2">
+                        <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                        <span class="text-sm text-green-400">Connected</span>
+                      </div>
+                    </div>
+                    <div class="space-y-2">
+                      <div class="flex justify-between text-sm">
+                        <span class="text-slate-400">Query Time</span>
+                        <span class="text-white">12ms</span>
+                      </div>
+                      <div class="flex justify-between text-sm">
+                        <span class="text-slate-400">Connections</span>
+                        <span class="text-white">24/100</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="bg-slate-800 rounded-xl border border-slate-700/50 p-6">
+                    <div class="flex items-center justify-between mb-4">
+                      <h4 class="text-lg font-medium text-white">Cache</h4>
+                      <div class="flex items-center gap-2">
+                        <div class="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
+                        <span class="text-sm text-yellow-400">Warning</span>
+                      </div>
+                    </div>
+                    <div class="space-y-2">
+                      <div class="flex justify-between text-sm">
+                        <span class="text-slate-400">Hit Rate</span>
+                        <span class="text-white">87%</span>
+                      </div>
+                      <div class="flex justify-between text-sm">
+                        <span class="text-slate-400">Memory Usage</span>
+                        <span class="text-white">2.1GB</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <style>
+              .slider-green::-webkit-slider-thumb {
+                appearance: none;
+                height: 20px;
+                width: 20px;
+                border-radius: 50%;
+                background: #10b981;
+                cursor: pointer;
+                box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+              }
+
+              .slider-yellow::-webkit-slider-thumb {
+                appearance: none;
+                height: 20px;
+                width: 20px;
+                border-radius: 50%;
+                background: #f59e0b;
+                cursor: pointer;
+                box-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
+              }
+
+              .slider-red::-webkit-slider-thumb {
+                appearance: none;
+                height: 20px;
+                width: 20px;
+                border-radius: 50%;
+                background: #ef4444;
+                cursor: pointer;
+                box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+              }
+            </style>
+            <script>
+              // Test API Button Animation
+              document.getElementById('test-api-btn').addEventListener('click', function () {
+                const btn = this;
+                const originalText = btn.innerHTML;
+
+                btn.innerHTML = `
+        <span class="flex items-center justify-center gap-2">
+          <svg class="w-5 h-5 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+          </svg>
+          Testing Connection...
+        </span>
+      `;
+                btn.disabled = true;
+
+                setTimeout(() => {
+                  btn.innerHTML = `
+          <span class="flex items-center justify-center gap-2">
+            <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            Connection Successful
+          </span>
+        `;
+
+                  setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                  }, 2000);
+                }, 3000);
+              });
+
+              // Debug Toggle Animation
+              document.getElementById('debug-toggle').addEventListener('change', function () {
+                const debugButtons = document.querySelectorAll('.bg-slate-700');
+                if (this.checked) {
+                  debugButtons.forEach(btn => {
+                    btn.style.animation = 'pulse 2s infinite';
+                  });
+                } else {
+                  debugButtons.forEach(btn => {
+                    btn.style.animation = '';
+                  });
+                }
+              });
+
+              // Range Slider Updates
+              document.querySelectorAll('input[type="range"]').forEach(slider => {
+                slider.addEventListener('input', function () {
+                  const label = this.previousElementSibling.querySelector('span');
+                  label.textContent = this.value;
+
+                  // Add glow effect when active
+                  this.style.boxShadow = '0 0 20px rgba(59, 130, 246, 0.5)';
+                  setTimeout(() => {
+                    this.style.boxShadow = '';
+                  }, 300);
+                });
+              });
+
+              // Form Validation Animation
+              document.querySelectorAll('input').forEach(input => {
+                input.addEventListener('invalid', function () {
+                  this.style.animation = 'shake 0.5s ease-in-out';
+                  setTimeout(() => {
+                    this.style.animation = '';
+                  }, 500);
+                });
+              });
+
+              // Sensor Button Flash Animation
+              document.querySelectorAll('.bg-slate-700').forEach(button => {
+                button.addEventListener('click', function () {
+                  const indicator = this.querySelector('.rounded-full');
+                  indicator.style.animation = 'ping 1s cubic-bezier(0, 0, 0.2, 1)';
+                  setTimeout(() => {
+                    indicator.style.animation = '';
+                  }, 1000);
+                });
+              });
+            </script>
+            <style>
+              @keyframes shake {
+
+                0%,
+                100% {
+                  transform: translateX(0);
+                }
+
+                25% {
+                  transform: translateX(-5px);
+                }
+
+                75% {
+                  transform: translateX(5px);
+                }
+              }
+            </style>
+          </div>
+  </main>
+
+  <!-- Core functionality scripts -->
+  <script>
+    // Initialize interactive elements
+    document.addEventListener('DOMContentLoaded', function () {
+      // Add interactive behaviors
+      const interactiveElements = document.querySelectorAll('.interactive-element');
+      interactiveElements.forEach(element => {
+        element.addEventListener('mouseenter', () => {
+          element.classList.add('hover');
+        });
+        element.addEventListener('mouseleave', () => {
+          element.classList.remove('hover');
+        });
+      });
+
+      // Initialize any dynamic content
+      const dynamicContent = document.querySelectorAll('[data-dynamic]');
+      dynamicContent.forEach(content => {
+        // Add fade-in animation
+        content.classList.add('fade-in');
+      });
+    });
+
+    // Handle navigation
+    function handleNavigation(event) {
+      const link = event.currentTarget;
+      if (link.hasAttribute('data-nav')) {
+        event.preventDefault();
+        const target = link.getAttribute('data-nav');
+        document.querySelector(target).scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    // Initialize navigation
+    document.querySelectorAll('[data-nav]').forEach(link => {
+      link.addEventListener('click', handleNavigation);
+    });
+  </script>
+
+  <!-- Body Scripts -->
+  <script id="body-scripts">
+    // This script tag will be replaced with actual scripts.body content
+    if (window.scripts && window.scripts.body) {
+      document.getElementById('body-scripts').outerHTML = window.scripts.body;
+    }
+  </script>
+
+  <script>
+    // Debug logging helper
+    const debugLog = (context, data) => {
+      console.log("[SPA Navigation] " + context + ":", data);
+    };
+
+    debugLog('Initializing', { projectType: 'webapp' });
+
+    // Function to show the selected section and hide others
+    function showSection(sectionId) {
+      debugLog('Showing section', { sectionId });
+
+      // Find all sections that could be page content
+      const allSections = document.querySelectorAll('main section');
+      debugLog('Found sections', {
+        count: allSections.length,
+        ids: Array.from(allSections).map(s => s.id)
+      });
+
+      // Hide all sections
+      allSections.forEach(section => {
+        section.style.display = 'none';
+      });
+
+      // Show the requested section
+      const targetSection = document.getElementById(sectionId);
+      if (targetSection) {
+        debugLog('Target section found', { id: sectionId });
+        targetSection.style.display = 'block';
+      } else {
+        debugLog('Target section not found', { id: sectionId });
+        // If section not found and there are sections, show the first one
+        if (allSections.length > 0) {
+          const firstSection = allSections[0];
+          debugLog('Showing first section instead', { id: firstSection.id });
+          firstSection.style.display = 'block';
+        }
+      }
+
+      // Update active states in any navigation
+      updateNavActiveStates(sectionId);
+    }
+
+    // Function to update active states in navigation elements
+    function updateNavActiveStates(activeSectionId) {
+      debugLog('Updating nav states', { activeSectionId });
+
+      // Find all navigation links
+      const navLinks = document.querySelectorAll('a[href^="#"]');
+      debugLog('Found nav links', {
+        count: navLinks.length,
+        hrefs: Array.from(navLinks).map(link => link.getAttribute('href'))
+      });
+
+      // Remove active classes from all links
+      navLinks.forEach(link => {
+        const linkSectionId = link.getAttribute('href').substring(1);
+        if (!linkSectionId) return;
+
+        debugLog('Processing link', {
+          href: link.getAttribute('href'),
+          currentClasses: link.className
+        });
+
+        // Handle desktop and mobile navigation links
+        link.classList.remove('bg-gray-700', 'text-white', 'bg-blue-50', 'text-blue-600');
+
+        if (link.closest('nav')) {
+          if (link.closest('.bg-gray-800') || link.closest('.text-gray-300')) {
+            link.classList.add('text-gray-300');
+          }
+        }
+      });
+
+      // Add active classes to matching links
+      navLinks.forEach(link => {
+        const linkTarget = link.getAttribute('href').substring(1);
+        if (linkTarget === activeSectionId) {
+          debugLog('Activating link', {
+            href: link.getAttribute('href'),
+            context: link.closest('.bg-gray-800') ? 'sidebar' :
+              link.closest('#mobile-menu') ? 'mobile' : 'default'
+          });
+
+          if (link.closest('.bg-gray-800') || link.closest('nav')) {
+            link.classList.add('bg-gray-700', 'text-white');
+          } else if (link.closest('#mobile-menu')) {
+            link.classList.add('bg-gray-700', 'text-white');
+          } else {
+            link.classList.add('text-blue-600');
+          }
+        }
+      });
+    }
+
+    // Handle hash changes
+    window.addEventListener('hashchange', function () {
+      const hash = window.location.hash.substring(1);
+      debugLog('Hash changed', { hash });
+      if (hash) {
+        showSection(hash);
+      }
+    });
+
+    // Handle initial page load
+    function handleInitialLoad() {
+      debugLog('Handling initial load');
+
+      const hash = window.location.hash.substring(1);
+      debugLog('Initial hash', { hash });
+
+      if (hash) {
+        showSection(hash);
+      } else {
+        const sections = document.querySelectorAll('main section');
+        debugLog('No hash found, searching for default section', {
+          totalSections: sections.length
+        });
+
+        if (sections.length > 0) {
+          const dashboardSection = document.getElementById('dashboard');
+          if (dashboardSection) {
+            debugLog('Found dashboard section', { id: 'dashboard' });
+            showSection('dashboard');
+            if (history.replaceState) {
+              history.replaceState(null, null, '#dashboard');
+            } else {
+              window.location.hash = 'dashboard';
+            }
+          } else {
+            const firstSectionId = sections[0].id;
+            if (firstSectionId) {
+              debugLog('Using first section', { id: firstSectionId });
+              showSection(firstSectionId);
+              if (history.replaceState) {
+                history.replaceState(null, null, '#' + firstSectionId);
+              } else {
+                window.location.hash = firstSectionId;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    // Set up delegation for navigation clicks
+    document.addEventListener('click', function (event) {
+      let targetElement = event.target.closest('a');
+
+      if (targetElement && targetElement.getAttribute('href') && targetElement.getAttribute('href').startsWith('#')) {
+        const sectionId = targetElement.getAttribute('href').substring(1);
+        debugLog('Navigation click', {
+          href: targetElement.getAttribute('href'),
+          sectionId
+        });
+
+        if (sectionId) {
+          const targetSection = document.getElementById(sectionId);
+          if (targetSection) {
+            event.preventDefault();
+            window.location.hash = sectionId;
+            showSection(sectionId);
+          } else {
+            debugLog('Target section not found for click', { sectionId });
+          }
+        }
+      }
+    });
+
+    // Initial setup
+    debugLog('Starting initial setup');
+    const allSections = document.querySelectorAll('main section');
+    debugLog('Initial sections state', {
+      totalSections: allSections.length,
+      sectionIds: Array.from(allSections).map(s => s.id)
+    });
+
+    allSections.forEach((section, index) => {
+      section.style.display = index === 0 ? 'block' : 'none';
+      debugLog('Setting initial section visibility', {
+        id: section.id,
+        index,
+        display: index === 0 ? 'block' : 'none'
+      });
+    });
+
+    handleInitialLoad();
+  </script>
+</body>
+
+</html>
